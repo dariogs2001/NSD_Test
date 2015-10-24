@@ -14,48 +14,74 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="96dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
     <Button
         android:id="@+id/advertise_btn"
         android:layout_width="96dp"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:onClick="clickAdvertise"
         android:text="@string/register" />
 
     <Button
         android:id="@+id/discover_btn"
         android:layout_width="96dp"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:onClick="clickDiscover"
         android:text="@string/discover" />
 
     <Button
         android:id="@+id/connect_btn"
         android:layout_width="96dp"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:onClick="clickConnect"
         android:text="@string/connect" />
 </LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/start_btn"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:onClick="clickStart"
+            android:text="@string/start"
+            />
+        <Button
+            android:id="@+id/stop_btn"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:onClick="clickEnd"
+            android:text="@string/stop" />
+    </LinearLayout>
 
-<TextView
-    android:id="@+id/status"
-    android:layout_width="fill_parent"
-    android:layout_height="200dp"
-    android:focusable="true" />
+    <TextView
+        android:id="@+id/discover_text_view"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:focusable="true"
+        android:background="#EFEFEF"/>
 
 <EditText
     android:id="@+id/chatInput"
     android:layout_width="fill_parent"
-    android:layout_height="80dp"
+    android:layout_height="42dp"
     android:inputType="text"
-    android:singleLine="true" />
-
+    android:singleLine="true"
+    android:paddingTop="10dp"/>
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:focusable="true"
+        android:background="#EFEFEF"/>
 <Button
     android:id="@+id/send_btn"
     android:layout_width="96dp"
-    android:layout_height="64dp"
+    android:layout_height="wrap_content"
     android:onClick="clickSend"
     android:text="@string/send" />
 

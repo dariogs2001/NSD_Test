@@ -37,9 +37,13 @@ public class NsdHelper {
 
     NsdServiceInfo mService;
 
+    public StringBuilder stringMessages;
+
     public NsdHelper(Context context) {
         mContext = context;
         mNsdManager = (NsdManager) context.getSystemService(Context.NSD_SERVICE);
+
+        stringMessages = new StringBuilder();
     }
 
     public void initializeNsd() {
@@ -62,6 +66,9 @@ public class NsdHelper {
             @Override
             public void onServiceFound(NsdServiceInfo service) {
                 Log.d(TAG, "Service discovery success" + service);
+
+                stringMessages.append(service.toString());
+
                 if (!service.getServiceType().equals(SERVICE_TYPE)) {
                     Log.d(TAG, "Unknown Service Type: " + service.getServiceType());
                 } else if (service.getServiceName().equals(mServiceName)) {
@@ -109,7 +116,7 @@ public class NsdHelper {
             @Override
             public void onServiceResolved(NsdServiceInfo serviceInfo) {
                 Log.e(TAG, "Resolve Succeeded. " + serviceInfo);
-
+                stringMessages.append(serviceInfo.toString());
                 if (serviceInfo.getServiceName().equals(mServiceName)) {
                     Log.d(TAG, "Same IP.");
                     return;

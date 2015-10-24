@@ -14,11 +14,15 @@ public class MainActivity extends AppCompatActivity {
     NsdHelper mNsdHelper;
 
     private TextView mStatusView;
+    private TextView mdiscoverView;
     private Handler mUpdateHandler;
+
+    AlarmReceiver mAlarmReceiver;
+
 
     public static final String TAG = "NsdChat";
 
-    ChatConnection mConnection;
+    public static ChatConnection mConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mStatusView = (TextView) findViewById(R.id.status);
+
+        mdiscoverView = (TextView) findViewById(R.id.discover_text_view);
 
         mUpdateHandler = new Handler() {
             @Override
@@ -39,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         mNsdHelper = new NsdHelper(this);
         mNsdHelper.initializeNsd();
+        mAlarmReceiver = new AlarmReceiver();
+
     }
     public void clickAdvertise(View v) {
         // Register service
@@ -51,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickDiscover(View v) {
         mNsdHelper.discoverServices();
+
+        mdiscoverView.setText(mNsdHelper.stringMessages.toString());
     }
 
     public void clickConnect(View v) {
@@ -62,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d(TAG, "No service to connect to!");
         }
+    }
+
+    public void clickStart(View v) {
+        mAlarmReceiver.setAlarm(this);
+    }
+    public void clickEnd(View v) {
+        mAlarmReceiver.cancelAlarm(this);
     }
 
     public void clickSend(View v) {
