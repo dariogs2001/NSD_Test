@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
 public class MainActivity extends AppCompatActivity {
     NsdHelper mNsdHelper;
 
@@ -18,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private Handler mUpdateHandler;
 
     AlarmReceiver mAlarmReceiver;
-
 
     public static final String TAG = "NsdChat";
 
@@ -102,10 +104,13 @@ public class MainActivity extends AppCompatActivity {
             mNsdHelper.stopDiscovery();
         }
         super.onPause();
+
+        BusProvider.getInstance().unregister(this);
     }
 
     @Override
     protected void onResume() {
+        BusProvider.getInstance().register(this);
         super.onResume();
         if (mNsdHelper != null) {
             mNsdHelper.discoverServices();
@@ -117,5 +122,15 @@ public class MainActivity extends AppCompatActivity {
         mNsdHelper.tearDown();
         mConnection.tearDown();
         super.onDestroy();
+    }
+
+
+    @Subscribe
+    public void sendMessageEvent(SendMessageEvent event)
+    {
+        String messageString = event.Message;
+        if (!messageString.isEmpty()) {
+            mConnection.sendMessage(messageString);
+        }
     }
 }
